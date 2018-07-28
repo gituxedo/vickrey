@@ -2,53 +2,16 @@
 <body>
 	<script>
 		var n = prompt("Enter the number of bidders:");
-		var bid;
 		var bids = [];
 		
-		for (i=0; i<n; i++) {
-			bid = prompt("Enter another bid");
-			bids.push(bid);
+		for (var i =0; i < n; i++) {
+			bids.push({"bid": +prompt(`Enter bid for bidder ${i+1}`),
+						"bidder": i})
 		}
-		
-		function max(array) {
-			var curr = 0;
-			for (i=0; i<array.length; i++) {
-				if (array[i] > curr) {
-					curr = array[i];
-				}
-			}
-			return curr;
-		}
-		
-		function secondHighest(array) {
-			var curr = -1;
-			var biggest = -1;
-			for (i=0; i<array.length; i++) {
-				if (array[i] > biggest) {
-					curr = biggest;
-					biggest = array[i];
-				} else if (array[i]<biggest && array[i]>curr) {
-					curr = array[i];
-				}
-				console.log("second max:" +curr);
-			}
-			return curr;
-		}
-		/*
-		function getHighestBidder(array, max(array))
-		{
-			for(i=0; i<array.length; i++){
-				if (array[i] == max(array)){
-					return i;
-				}
-			}
-		}
-		
-		console.log("Highest bidder: " highest[1]);
-		console.log("Price: " price[0]);
-		*/
-		console.log(secondHighest(bids));
-		console.log(max(bids));
-		
+		alert(JSON.stringify(bids, null, 4))
+
+		var sorted = bids.sort((a,b) => a.bid - b.bid)
+		alert(JSON.stringify(sorted, null, 4))		
+
 	</script>
 </body>
