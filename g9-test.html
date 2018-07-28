@@ -1,0 +1,61 @@
+<head>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/g9/1.0.16/g9.js'></script>
+</head>
+
+<body>
+	<script>
+		//g9 scripts here
+		<!--
+		var initialData = {
+			bar_start_x: -100,
+			bar_start_y: -50,
+			bar_end_x: 100,
+			bar_end_y: -50,
+		}
+		
+		var render = function(data, ctx){
+			// if we provide an `affects` option, this
+			// line will only change the parameters we name.
+			ctx.line(data.bar_start_x, data.bar_start_y,
+					 data.bar_end_x,   data.bar_end_y, {
+				affects: ['l2_start_x', 'l2_start_y'],
+				stroke: 'black',
+				'stroke-width': 10
+			})
+		}
+		
+		g9(initialData, render)
+			.align('center', 'center')
+			.insertInto('#demo-lines')
+		-->
+		var initialData = {
+			radius: 100,
+			angle: 0
+		}
+
+		function render(data, ctx){
+			var sides = 10
+			for(var i=0; i<sides; i++){
+				var a = data.angle + i/sides * Math.PI * 2
+				var r1 = data.radius
+				var r2 = r1/2
+				ctx.point(r1 * Math.cos( a), r1 * Math.sin( a))
+				ctx.point(r2 * Math.cos(-a), r2 * Math.sin(-a), {fill: 'red'})
+
+				/* uncomment this following line to make this
+				   drawing more exciting! */
+
+				/*ctx.line(r1 * Math.cos( a), r1 * Math.sin( a),
+						   r2 * Math.cos(-a), r2 * Math.sin(-a)) */
+
+			}
+		}         
+
+		g9(initialData, render)
+			.align('center', 'center')
+			.insertInto('#demo-rings')
+	</script>
+	
+	<section class = "bla">
+	</section>
+</body>

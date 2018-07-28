@@ -1,0 +1,134 @@
+<head>
+	<script defer src="http://vizit.github.io/vfield/js/VField.min.js"></script>
+	<script defer src="https://github.com/VizIT/efield/blob/master/js/efield.min.js"></script>
+</head>
+
+<body>
+	<script>
+        // This object is loaded by the VizBuilder on the DOMReady event.
+        var VISUALIZATION_CONFIG
+	    = [
+			{
+			type:      "simple vector field",
+			// The id of the canvas we draw into
+			canvas:    "chargeCanvasI",
+			scale:     20.0,
+			arrowSize: 5.0,
+			f:
+				{
+				  type: "charge",  charge:  5.0,
+				  x: 0.0, y: 0.0, z: 0.0,
+				  nFieldLines: 15.0
+				}
+			},
+			{
+			type:      "electric field",
+			// The id of the canvas we draw into
+			canvas:    "chargeCanvasII",
+			scale:     15.0,
+			arrowSize: 0.8,
+			arrowSpacing: 5,
+			// In this case the electric field from a single charge.
+			elements:  {
+				type: "charge",  charge:  5.0,
+				x: 0.0, y: 0.0, z: 0.0,
+				fieldLineDensity: 15.0
+				}
+			}
+		]
+		
+		function placeCharges(fieldRenderer) {
+			var q;
+			q = new Charge(1.0, 0.0, 0.0, 0.0);
+			fieldRenderer.addCharge(q);
+			return fieldRenderer;
+		}
+		
+		function placeMoreCharges(fieldRenderer) {
+			var q1;
+			var q2;
+			//set coords of each point charge
+			q1 = new Charge( 1.0, -30.0, 0.0, 0.0)
+			q2 = new Charge(-1.0,  30.0, 0.0, 0.0)
+			
+			fieldRenderer.addCharge(q1)
+						 .addCharge(q2);
+			return fieldRenderer
+		}
+		
+		function placeStartPoints(fieldRenderer)
+		{
+		  fieldRenderer.addStartPoint( 2.0,  0.0,  0.0,    1.0)
+					   .addStartPoint(-2.0,  0.0,  0.0,    1.0)
+					   .addStartPoint( 0.0,  2.0,  0.0,    1.0)
+					   .addStartPoint( 0.0, -2.0,  0.0,    1.0)
+					   .addStartPoint( 1.0,  1.0,  1.4142, 1.0)
+					   .addStartPoint( 1.0,  1.0, -1.4142, 1.0)
+					   .addStartPoint( 1.0, -1.0,  1.4142, 1.0)
+					   .addStartPoint( 1.0, -1.0, -1.4142, 1.0)
+					   .addStartPoint(-1.0,  1.0,  1.4142, 1.0)
+					   .addStartPoint(-1.0,  1.0, -1.4142, 1.0)
+					   .addStartPoint(-1.0, -1.0,  1.4142, 1.0)
+					   .addStartPoint(-1.0, -1.0, -1.4142, 1.0);
+
+		  return fieldRenderer;
+		}
+		
+		function placeMoreStartPoints(fieldRenderer)
+		{
+		  fieldRenderer.addStartPoint(-28.0,   0.0,   0.0,    1.0)
+					   .addStartPoint(-30.0,   2.0,   0.0,    1.0)
+					   .addStartPoint(-30.0,  -2.0,   0.0,    1.0)
+					   .addStartPoint(-29.0,   1.0,   1.4142, 1.0)
+					   .addStartPoint(-29.0,   1.0,  -1.4142, 1.0)
+					   .addStartPoint(-29.0,  -1.0,   1.4142, 1.0)
+					   .addStartPoint(-29.0,  -1.0,  -1.4142, 1.0)
+					   .addStartPoint(-31.0,   1.0,   1.4142, 1.0)
+					   .addStartPoint(-31.0,   1.0,  -1.4142, 1.0)
+					   .addStartPoint(-31.0,  -1.0,   1.4142, 1.0)
+					   .addStartPoint(-31.0,  -1.0,  -1.4142, 1.0)
+					   .addStartPoint(-31.31,  0.54,  1.4142, 1.0)
+					   .addStartPoint(-31.31,  0.54, -1.4142, 1.0)
+					   .addStartPoint(-31.31, -0.54,  1.4142, 1.0)
+					   .addStartPoint(-31.31, -0.54, -1.4142, 1.0);
+
+		  return fieldRenderer;
+		}
+		
+		var drawingSurface;
+		var renderer;
+		
+		drawingSurface = document.getElementById('drawingSurface');
+		renderer = new fieldRenderer(drawingSurface);
+		renderer = placeCharges(renderer);
+		renderer = placeStartPoints(renderer);
+		renderer.start();
+		
+		drawingSurface = document.getElementById('thingy');
+		//thingy is the drawing surface for 2 charges
+		renderer = new fieldRenderer(drawingSurface);
+		renderer = placeCharges(renderer);
+		renderer = placeStartPoints(renderer);
+		renderer.start();
+		
+	</script>
+	<section class = "examples">
+		<div class = "example left">
+			<figure class="left">
+				<canvas id="chargeCanvasI" width="400" height="400"></canvas>
+				<figcaption>The electric field from a point charge represented
+						  as a vector field.</figcaption>
+			</figure>
+		</div>
+		
+		<div class = "example right">
+			<figure class="right">
+				<canvas id="chargeCanvasII" width="400" height="400"></canvas>
+				<figcaption>The electric field from a point charge represented
+						  by field lines.</figcaption>
+			</figure>
+		</div>
+		
+	</section>
+
+</body>
