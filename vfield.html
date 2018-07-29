@@ -1,6 +1,5 @@
 <head>
 	<script defer src="http://vizit.github.io/vfield/js/VField.min.js"></script>
-	<script defer src="https://github.com/VizIT/efield/blob/master/js/efield.min.js"></script>
 </head>
 
 <body>
@@ -54,45 +53,6 @@
 			fieldRenderer.addCharge(q1)
 						 .addCharge(q2);
 			return fieldRenderer
-		}
-		
-		function placeStartPoints(fieldRenderer)
-		{
-		  fieldRenderer.addStartPoint( 2.0,  0.0,  0.0,    1.0)
-					   .addStartPoint(-2.0,  0.0,  0.0,    1.0)
-					   .addStartPoint( 0.0,  2.0,  0.0,    1.0)
-					   .addStartPoint( 0.0, -2.0,  0.0,    1.0)
-					   .addStartPoint( 1.0,  1.0,  1.4142, 1.0)
-					   .addStartPoint( 1.0,  1.0, -1.4142, 1.0)
-					   .addStartPoint( 1.0, -1.0,  1.4142, 1.0)
-					   .addStartPoint( 1.0, -1.0, -1.4142, 1.0)
-					   .addStartPoint(-1.0,  1.0,  1.4142, 1.0)
-					   .addStartPoint(-1.0,  1.0, -1.4142, 1.0)
-					   .addStartPoint(-1.0, -1.0,  1.4142, 1.0)
-					   .addStartPoint(-1.0, -1.0, -1.4142, 1.0);
-
-		  return fieldRenderer;
-		}
-		
-		function placeMoreStartPoints(fieldRenderer)
-		{
-		  fieldRenderer.addStartPoint(-28.0,   0.0,   0.0,    1.0)
-					   .addStartPoint(-30.0,   2.0,   0.0,    1.0)
-					   .addStartPoint(-30.0,  -2.0,   0.0,    1.0)
-					   .addStartPoint(-29.0,   1.0,   1.4142, 1.0)
-					   .addStartPoint(-29.0,   1.0,  -1.4142, 1.0)
-					   .addStartPoint(-29.0,  -1.0,   1.4142, 1.0)
-					   .addStartPoint(-29.0,  -1.0,  -1.4142, 1.0)
-					   .addStartPoint(-31.0,   1.0,   1.4142, 1.0)
-					   .addStartPoint(-31.0,   1.0,  -1.4142, 1.0)
-					   .addStartPoint(-31.0,  -1.0,   1.4142, 1.0)
-					   .addStartPoint(-31.0,  -1.0,  -1.4142, 1.0)
-					   .addStartPoint(-31.31,  0.54,  1.4142, 1.0)
-					   .addStartPoint(-31.31,  0.54, -1.4142, 1.0)
-					   .addStartPoint(-31.31, -0.54,  1.4142, 1.0)
-					   .addStartPoint(-31.31, -0.54, -1.4142, 1.0);
-
-		  return fieldRenderer;
 		}
 		
 		var drawingSurface;

@@ -1,0 +1,74 @@
+<body>
+	<script>
+		// Input:
+		// Values (stored in array v)
+		// Weights (stored in array w)
+		// Number of distinct items (n)
+		// Knapsack capacity (stock)
+		// NOTE: The array "v" and array "w" are assumed to store all relevant values ***starting at index 1.***
+		
+// for j from 0 to W do: 
+    // m[0, j] := 0 
+
+// for i from 1 to n do: 
+    // for j from 0 to W do: 
+        // if w[i] > j then: 
+            // m[i, j] := m[i-1, j] 
+        // else: 
+            // m[i, j] := max(m[i-1, j], m[i-1, j-w[i]] + v[i]) 
+
+		var bids;
+		var stock;
+		var n = prompt("How many bidders?");
+		var optimal = []
+		var v = [4, 2, 10, 1, 2];
+		var w = [12, 1, 4, 1, 2];
+		
+		vcg(v, w, 15);
+		
+		function getBids(n) {
+		//each bidder enters bids. 0 is the sentinel value.
+		//somehow turn this into a bunch of tuples or link the arrays or something idk
+		//placeholder!!
+			v = [4, 2, 10, 1, 2];
+			w = [12, 1, 4, 1, 2];
+			return 0;
+			
+		}
+		
+		function vcg(v_bidAmount, w_numberBidded, stock) {
+			for (var i=0; i<v_bidAmount.length; i++) {
+			//generates empty array, dimension is # of bids
+				optimal.push([]);
+				for (var j=0; j<v_bidAmount.length; j++) {
+					optimal[i].push(0);
+				}
+			}
+			console.log(optimal);
+			
+			for (var i=1; i<=n; i++) {
+				for (var j=0; j<stock; j++) {
+					if (w[i] > j) {
+						optimal[i][j] = optimal[i-1][j]
+					} else {
+						optimal[i][j] = Math.max(optimal[i-1][j], optimal[i-1][j-w[i]] + v[i]);
+					}
+					
+				}
+			}
+			
+			console.log(optimal[v_bidAmount.length -1][v_bidAmount.length-1]);
+		}
+		
+		/*
+			var bids = [
+				  {w:12,v:4},
+				  {w:1,v:2},
+				  {w:4,v:10},
+				  {w:1,v:1},
+				  {w:2,v:2},
+				];
+		*/
+		
+	</script>
+</body>
