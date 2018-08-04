@@ -1,4 +1,22 @@
+<head>
+	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/prototype/1/prototype.js"></script>
+</head>
+
+<html>
 <body>
+	
+	<title> tEsT </title>
+	<form id="bidInput">
+		<input id="addBid" type="submit" value="Add bid">
+		<br># of items:<br>
+		<input type="text" value="">
+		<br>Total price:<br>
+		<input type="text" value="">
+		<br><br>
+		<input type="submit" value="Confirm bid(s)">
+		
+	</form>
+	
 	<script>
 		// Input:
 		// Values (stored in array v)
@@ -6,59 +24,89 @@
 		// Number of distinct items (n)
 		// Knapsack capacity (stock)
 		// NOTE: The array "v" and array "w" are assumed to store all relevant values ***starting at index 1.***
-		
-// for j from 0 to W do: 
-    // m[0, j] := 0 
-
-// for i from 1 to n do: 
-    // for j from 0 to W do: 
-        // if w[i] > j then: 
-            // m[i, j] := m[i-1, j] 
-        // else: 
-            // m[i, j] := max(m[i-1, j], m[i-1, j-w[i]] + v[i]) 
 
 		var bids;
 		var stock;
-		var n = prompt("How many bidders?");
+		//var n = prompt("How many bidders?");
 		var optimal = []
 		var v = [4, 2, 10, 1, 2];
 		var w = [12, 1, 4, 1, 2];
 		
-		vcg(v, w, 15);
-		
 		function getBids(n) {
-		//each bidder enters bids. 0 is the sentinel value.
-		//somehow turn this into a bunch of tuples or link the arrays or something idk
-		//placeholder!!
-			v = [4, 2, 10, 1, 2];
-			w = [12, 1, 4, 1, 2];
-			return 0;
 			
 		}
 		
-		function vcg(v_bidAmount, w_numberBidded, stock) {
-			for (var i=0; i<v_bidAmount.length; i++) {
-			//generates empty array, dimension is # of bids
-				optimal.push([]);
-				for (var j=0; j<v_bidAmount.length; j++) {
-					optimal[i].push(0);
-				}
+		function knapsack(items, capacity){
+		  // This implementation uses dynamic programming.
+		  // Variable 'memo' is a grid(2-dimentional array) to store optimal solution for sub-problems,
+		  // which will be later used as the code execution goes on.
+		  // This is called memoization in programming.
+		  // The cell will store best solution objects for different capacities and selectable items.
+		  var memo = [];
+
+		  // Filling the sub-problem solutions grid.
+		  for (var i = 0; i < items.length; i++) {
+			// Variable 'cap' is the capacity for sub-problems. In this example, 'cap' ranges from 1 to 6.
+			var row = [];
+			for (var cap = 1; cap <= capacity; cap++) {
+			  row.push(getSolution(i,cap));
 			}
-			console.log(optimal);
-			
-			for (var i=1; i<=n; i++) {
-				for (var j=0; j<stock; j++) {
-					if (w[i] > j) {
-						optimal[i][j] = optimal[i-1][j]
-					} else {
-						optimal[i][j] = Math.max(optimal[i-1][j], optimal[i-1][j-w[i]] + v[i]);
-					}
-					
-				}
+			memo.push(row);
+		  }
+
+		  // The right-bottom-corner cell of the grid contains the final solution for the whole problem.
+		  return(getLast());
+
+		  function getLast(){
+			var lastRow = memo[memo.length - 1];
+			return lastRow[lastRow.length - 1];
+		  }
+
+		  function getSolution(row,cap){
+			const NO_SOLUTION = {maxValue:0, subset:[]};
+			// the column number starts from zero.
+			var col = cap - 1;
+			var lastItem = items[row];
+			// The remaining capacity for the sub-problem to solve.
+			var remaining = cap - lastItem.w;
+
+			// Refer to the last solution for this capacity,
+			// which is in the cell of the previous row with the same column
+			var lastSolution = row > 0 ? memo[row - 1][col] || NO_SOLUTION : NO_SOLUTION;
+			// Refer to the last solution for the remaining capacity,
+			// which is in the cell of the previous row with the corresponding column
+			var lastSubSolution = row > 0 ? memo[row - 1][remaining - 1] || NO_SOLUTION : NO_SOLUTION;
+
+			// If any one of the items weights greater than the 'cap', return the last solution
+			if(remaining < 0){
+			  return lastSolution;
 			}
-			
-			console.log(optimal[v_bidAmount.length -1][v_bidAmount.length-1]);
+
+			// Compare the current best solution for the sub-problem with a specific capacity
+			// to a new solution trial with the lastItem(new item) added
+			var lastValue = lastSolution.maxValue;
+			var lastSubValue = lastSubSolution.maxValue;
+
+			var newValue = lastSubValue + lastItem.v;
+			if(newValue >= lastValue){
+			  // copy the subset of the last sub-problem solution
+			  var _lastSubSet = lastSubSolution.subset.slice();
+			  _lastSubSet.push(lastItem);
+			  return {maxValue: newValue, subset:_lastSubSet};
+			}else{
+			  return lastSolution;
+			}
+		  }
 		}
+		
+		document.observe("dom:loaded", function() {  
+		  $('addBid').observe('click', addAnotherTextBox);
+		  function addAnotherTextBox() {
+			$("bidInput").insert("<br><label>Another email address: <input type='text'>");
+		  }
+		  
+		});
+
 		
 		/*
 			var bids = [
@@ -72,3 +120,4 @@
 		
 	</script>
 </body>
+</html>
