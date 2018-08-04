@@ -7,7 +7,7 @@
 	
 	<title> tEsT </title>
 	<form id="bidInput" action = "">
-		<input id="addBid" type="submit" value="Add bid">
+		<button type="button" id="addBid" onclick="addAnotherBid()">Add Bid</button>
 		<br># of items:<br>
 		<input type="text" value="">
 		<br>Total price:<br>
@@ -99,14 +99,11 @@
 		  }
 		}
 		
-		document.observe("dom:loaded", function() {  
-		  $('addBid').observe('click', addAnotherBid);
 		  function addAnotherBid() {
-			$("bidInput").insert("<br><label># of items: <br><input type='text'>");
-			$("bidInput").insert("<br><label>Total price: <br><input type='text'>");
+			var x = document.getElementById("bidInput");
+			x.insert("<br><label># of items: <br><input type='text'>");
+			x.insert("<br><label>Total price: <br><input type='text'>");
 		  }
-		  
-		});
 
 		
 		/*
