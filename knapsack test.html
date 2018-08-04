@@ -6,7 +6,7 @@
 <body>
 	
 	<title> tEsT </title>
-	<form id="bidInput">
+	<form id="bidInput" action = "">
 		<input id="addBid" type="submit" value="Add bid">
 		<br># of items:<br>
 		<input type="text" value="">
@@ -100,9 +100,10 @@
 		}
 		
 		document.observe("dom:loaded", function() {  
-		  $('addBid').observe('click', addAnotherTextBox);
-		  function addAnotherTextBox() {
-			$("bidInput").insert("<br><label>Another email address: <input type='text'>");
+		  $('addBid').observe('click', addAnotherBid);
+		  function addAnotherBid() {
+			$("bidInput").insert("<br><label># of items: <br><input type='text'>");
+			$("bidInput").insert("<br><label>Total price: <br><input type='text'>");
 		  }
 		  
 		});
